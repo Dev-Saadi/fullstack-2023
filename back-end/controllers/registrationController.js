@@ -1,5 +1,28 @@
+const todoSchema = require("../model/todoSchema")
+
+
+
+
+
+
+
+
+
+
 let registrationController = (req, res) => {
-    console.log('hello');
+    const { email, username, password } = req.body
+
+
+    let task = new todoSchema({
+        email: email,
+        username: username,
+        password: password,
+
+    });
+
+    task.save()
+
+    res.send(task)
 }
 
 module.exports = registrationController

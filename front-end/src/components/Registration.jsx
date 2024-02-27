@@ -1,8 +1,29 @@
 
 import { Button, Form, Input } from 'antd';
 import axios from "axios"
+import { useState } from 'react';
 
 const Registration = () => {
+
+    let [value, setValue] = useState("")
+    let [arr, setarr] = useState([])
+
+
+    let handlechange = (e) => {
+        setValue(e.target.value);
+    }
+
+
+    let submitbtn = () => {
+        arr.push({
+            label: value
+        });
+
+        let newArr = [...arr]
+
+        setarr(newArr)
+    }
+
 
     const onFinish = (values) => {
         console.log('Success:', values);
@@ -27,6 +48,9 @@ const Registration = () => {
     return (
         <>
 
+
+
+
             <Form
                 name="basic"
                 labelCol={{
@@ -45,7 +69,7 @@ const Registration = () => {
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
             >
-                <Form.Item
+                <Form.Item onChange={handlechange}
                     label="Username"
                     name="username"
                     rules={[
@@ -59,7 +83,7 @@ const Registration = () => {
                 </Form.Item>
 
 
-                <Form.Item
+                <Form.Item onChange={handlechange}
                     label="Email"
                     name="email"
                     rules={[
@@ -75,7 +99,7 @@ const Registration = () => {
 
 
 
-                <Form.Item
+                <Form.Item onChange={handlechange}
                     label="Password"
                     name="password"
                     rules={[
@@ -105,11 +129,20 @@ const Registration = () => {
                         span: 16,
                     }}
                 >
-                    <Button type="primary" htmlType="submit">
+                    <Button onClick={submitbtn} type="primary" htmlType="submit">
                         Submit
                     </Button>
                 </Form.Item>
+
+
+
+
+
+                {arr.map((item, index) => (
+                    <p key={index}>{item.label}</p>
+                ))}
             </Form>
+
 
 
         </>
